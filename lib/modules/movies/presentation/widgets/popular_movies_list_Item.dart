@@ -27,23 +27,27 @@ class PopularMoviesListItem extends StatelessWidget {
             width: 120.0,
             fit: BoxFit.cover,
             imageUrl: imageUrl(movie.imagePath),
-            placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: Colors.grey[850]!,
-              highlightColor: Colors.grey[800]!,
-              child: Container(
-                height: 170.0,
-                width: 120.0,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ),
+            placeholder: (context, url) => buildShimmerEffect(),
             errorWidget: (context, url, error) =>
             const Icon(Icons.error),
           ),
         ),
       ),
     );
+  }
+
+  Shimmer buildShimmerEffect() {
+    return Shimmer.fromColors(
+            baseColor: Colors.grey[850]!,
+            highlightColor: Colors.grey[800]!,
+            child: Container(
+              height: 170.0,
+              width: 120.0,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          );
   }
 }

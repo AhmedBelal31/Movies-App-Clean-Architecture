@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app_clean_architecture/core/services/service_locator.dart';
 import 'package:movies_app_clean_architecture/core/services/web_service.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/data_source/movies_remote_data_source.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/repos/movies_repo_impl.dart';
@@ -17,17 +19,19 @@ class MoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesCubit(
-        getNowPlayingUseCase: GetNowPlayingUseCase(
-          moviesRepo: MoviesRepoImpl(
-            moviesRemoteDataSource: MoviesRemoteDataSourceImpl(
-              apiService: ApiService(
-                Dio(),
-              ),
-            ),
-          ),
-        ),
-      )..getNowPlayingMovies(),
+      // create: (context) => MoviesCubit(
+      //   getNowPlayingUseCase: GetNowPlayingUseCase(
+      //     moviesRepo: MoviesRepoImpl(
+      //       moviesRemoteDataSource: MoviesRemoteDataSourceImpl(
+      //         apiService: ApiService(
+      //           Dio(),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // )..getNowPlayingMovies(),
+        create: (context) => getIt.get<MoviesCubit>()..getNowPlayingMovies(),
+      lazy: false,
       child: Scaffold(
         body: SingleChildScrollView(
           key: const Key('movieScrollView'),
