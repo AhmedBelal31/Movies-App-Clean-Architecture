@@ -1,10 +1,10 @@
 import 'package:movies_app_clean_architecture/core/services/web_service.dart';
 import 'package:movies_app_clean_architecture/core/utiles/constants/api_constants.dart';
+import 'package:movies_app_clean_architecture/core/utiles/methods/get_movies_list.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie_entity.dart';
-import 'package:movies_app_clean_architecture/core/methods/get_movies_list.dart';
 
 abstract class MoviesRemoteDataSource {
-  Future<List<MovieEntity>> getNowPlaying();
+  Future<List<MovieEntity>> getNowPlayingMovies();
 
   Future<List<MovieEntity>> getPopularMovies();
 
@@ -17,7 +17,7 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
   MoviesRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<List<MovieEntity>> getNowPlaying() async {
+  Future<List<MovieEntity>> getNowPlayingMovies() async {
     var data = await apiService.getData(nowPlayingEndPoint);
     List<MovieEntity> nowPlayingMovies = getMoviesList(data);
     return nowPlayingMovies;

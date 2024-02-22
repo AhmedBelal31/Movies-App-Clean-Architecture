@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:movies_app_clean_architecture/core/error/failure.dart';
 import 'package:movies_app_clean_architecture/core/use_cases/use_case.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie_entity.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/repos/movies_repo.dart';
@@ -8,7 +10,8 @@ class GetTopRatedMoviesUseCase extends UseCase<List<MovieEntity>, void> {
   GetTopRatedMoviesUseCase({required this.moviesRepo});
 
   @override
-  Future<List<MovieEntity>> execute([void param]) async {
+  Future<Either<Failure, List<MovieEntity>>> execute([void param]) async {
+    // TODO: implement execute
     return await moviesRepo.getTopRatedMovies();
   }
 }
