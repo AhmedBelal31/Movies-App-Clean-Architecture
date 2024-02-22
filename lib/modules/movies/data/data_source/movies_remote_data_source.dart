@@ -20,6 +20,7 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
   Future<List<MovieEntity>> getNowPlayingMovies() async {
     var data = await apiService.getData(nowPlayingEndPoint);
     List<MovieEntity> nowPlayingMovies = getMoviesList(data);
+
     return nowPlayingMovies;
   }
 
