@@ -4,7 +4,7 @@ import 'package:movies_app_clean_architecture/modules/movies/presentation/contro
 
 class MoviesCubit extends Cubit<MoviesStates> {
   MoviesCubit({required this.getNowPlayingUseCase})
-      : super(MoviesInitialStates());
+      : super(MoviesInitialState());
 
   MoviesCubit get(context) => BlocProvider.of(context);
 
@@ -15,10 +15,10 @@ class MoviesCubit extends Cubit<MoviesStates> {
     var nowPlayingMoviesOrFailure = await getNowPlayingUseCase.execute();
 
     nowPlayingMoviesOrFailure.fold((failure) {
-      emit(NowPlayingMoviesFailureStates(errorMessage: failure.errorMessage));
+      emit(NowPlayingMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
-      print(movies);
-      emit(NowPlayingMoviesSuccessStates(nowPlayingMovies: movies));
+      // print(movies);
+      emit(NowPlayingMoviesSuccessState(nowPlayingMovies: movies));
     });
   }
 }

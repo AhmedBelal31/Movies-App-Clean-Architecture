@@ -30,7 +30,7 @@ class MoviesScreen extends StatelessWidget {
       //     ),
       //   ),
       // )..getNowPlayingMovies(),
-        create: (context) => getIt.get<MoviesCubit>()..getNowPlayingMovies(),
+      create: (context) => getIt.get<MoviesCubit>()..getNowPlayingMovies(),
       lazy: false,
       child: Scaffold(
         body: SingleChildScrollView(

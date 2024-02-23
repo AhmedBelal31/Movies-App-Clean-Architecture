@@ -2,20 +2,20 @@ import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie
 
 abstract class MoviesStates {}
 
-class MoviesInitialStates extends MoviesStates {}
+class MoviesInitialState extends MoviesStates {}
 
 
 ///States For NowPlaying
 class NowPlayingMoviesLoadingStates extends MoviesStates {}
 
-class NowPlayingMoviesSuccessStates extends MoviesStates {
+class NowPlayingMoviesSuccessState extends MoviesStates {
   List<MovieEntity> nowPlayingMovies;
 
-  NowPlayingMoviesSuccessStates({required this.nowPlayingMovies});
+  NowPlayingMoviesSuccessState({required this.nowPlayingMovies});
 }
 
-class NowPlayingMoviesFailureStates extends MoviesStates {
+class NowPlayingMoviesFailureState extends MoviesStates {
   String errorMessage;
 
-  NowPlayingMoviesFailureStates({required this.errorMessage});
+  NowPlayingMoviesFailureState({required this.errorMessage});
 }

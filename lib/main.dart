@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app_clean_architecture/core/services/bloc_observer.dart';
 import 'package:movies_app_clean_architecture/core/services/service_locator.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/screens/movies_screen.dart';
+import 'package:movies_app_clean_architecture/test_screen.dart';
 
 void main()  {
    setupServiceLocator() ;
+   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: MoviesScreen(),
+      home: const MoviesScreen(),
     );
   }
 }

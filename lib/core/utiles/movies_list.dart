@@ -12,7 +12,7 @@ List<MovieEntity> moviesList = const [
     overview:
         "Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary.",
     releaseDate: "2022-05-04",
-    title: "MovieEntity Title",
+    title: "Doctor Strange",
     voteAverage: 5.0,
   ),
   MovieEntity(
