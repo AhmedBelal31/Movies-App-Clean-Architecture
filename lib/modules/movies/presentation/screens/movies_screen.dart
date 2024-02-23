@@ -19,19 +19,10 @@ class MoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      // create: (context) => MoviesCubit(
-      //   getNowPlayingUseCase: GetNowPlayingUseCase(
-      //     moviesRepo: MoviesRepoImpl(
-      //       moviesRemoteDataSource: MoviesRemoteDataSourceImpl(
-      //         apiService: ApiService(
-      //           Dio(),
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // )..getNowPlayingMovies(),
-      create: (context) => getIt.get<MoviesCubit>()..getNowPlayingMovies(),
-      lazy: false,
+      create: (context) => getIt.get<MoviesCubit>()
+        ..getPopularMovies()
+        ..getNowPlayingMovies()
+        ..getTopRatedMovies(),
       child: Scaffold(
         body: SingleChildScrollView(
           key: const Key('movieScrollView'),
@@ -89,12 +80,7 @@ class MoviesScreen extends StatelessWidget {
 
   Widget buildTopRatedHeader() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(
-        16.0,
-        24.0,
-        16.0,
-        8.0,
-      ),
+      margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

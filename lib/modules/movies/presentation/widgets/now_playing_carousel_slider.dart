@@ -17,16 +17,24 @@ class NowPlayingCarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesCubit, MoviesStates>(
       builder: (context, state) {
-        if (state is NowPlayingMoviesSuccessState) {
+        var moviesCubit = BlocProvider.of<MoviesCubit>(context);
+        //Arrange the list randomly
+        final randomMovie = moviesCubit.nowPlayingMovies;
+        randomMovie.shuffle();
+        if (state is NowPlayingMoviesSuccessState ||
+            moviesCubit.nowPlayingMovies.isNotEmpty) {
           return FadeIn(
             duration: const Duration(milliseconds: 500),
             child: CarouselSlider(
               options: CarouselOptions(
                 height: 400.0,
+                autoPlay: true,
+                autoPlayAnimationDuration: const Duration(milliseconds: 400),
+                autoPlayCurve: Curves.easeInToLinear,
                 viewportFraction: 1.0,
                 onPageChanged: (index, reason) {},
               ),
-              items: state.nowPlayingMovies.map(
+              items: randomMovie.map(
                 (item) {
                   return buildCarouselSliderItem(item);
                 },
