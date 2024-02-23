@@ -18,9 +18,9 @@ class MoviesCubit extends Cubit<MoviesStates> {
   GetTopRatedMoviesUseCase getTopRatedMoviesUseCase;
   GetPopularMoviesUseCase getPopularMoviesUseCase;
 
-  List<MovieEntity> nowPlayingMovies =[];
-  List<MovieEntity> popularMovies =[];
-  List<MovieEntity> topRatedMovies =[];
+  List<MovieEntity> nowPlayingMovies = [];
+  List<MovieEntity> popularMovies = [];
+  List<MovieEntity> topRatedMovies = [];
 
   Future<void> getNowPlayingMovies() async {
     emit(NowPlayingMoviesLoadingStates());
@@ -29,13 +29,11 @@ class MoviesCubit extends Cubit<MoviesStates> {
     nowPlayingMoviesOrFailure.fold((failure) {
       emit(NowPlayingMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
-      nowPlayingMovies= movies ;
+      nowPlayingMovies = movies;
       // print('NowPlaying Data \n $movies');
       emit(NowPlayingMoviesSuccessState(nowPlayingMovies: movies));
     });
   }
-
-
 
   Future<void> getPopularMovies() async {
     emit(PopularMoviesLoadingStates());
@@ -45,7 +43,7 @@ class MoviesCubit extends Cubit<MoviesStates> {
       emit(PopularMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
       // print('Popular Data \n $movies');
-      popularMovies = movies ;
+      popularMovies = movies;
       emit(PopularMoviesSuccessState(popularMovies: movies));
     });
   }
@@ -57,7 +55,7 @@ class MoviesCubit extends Cubit<MoviesStates> {
     topRatedMoviesOrFailure.fold((failure) {
       emit(TopRatedMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
-      topRatedMovies = movies ;
+      topRatedMovies = movies;
       // print(movies);
       emit(TopRatedMoviesSuccessState(topRatedMovies: movies));
     });

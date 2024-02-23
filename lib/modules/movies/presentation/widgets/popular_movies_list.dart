@@ -28,7 +28,8 @@ class PopularMovies extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 itemCount: moviesCubit.popularMovies.length,
                 itemBuilder: (context, index) {
-                   final reversedMovie =moviesCubit.popularMovies.reversed.toList()[index];
+                  final reversedMovie =
+                      moviesCubit.popularMovies.reversed.toList()[index];
                   // final randomMovie = moviesCubit.popularMovies;
                   // randomMovie.shuffle();
                   return PopularMoviesListItem(movie: reversedMovie);
