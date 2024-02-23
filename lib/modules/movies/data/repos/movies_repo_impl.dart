@@ -26,7 +26,7 @@ class MoviesRepoImpl extends MoviesRepo {
   Future<Either<Failure, List<MovieEntity>>> getPopularMovies() async {
     try {
       List<MovieEntity> popularMovies =
-          await moviesRemoteDataSource.getNowPlayingMovies();
+          await moviesRemoteDataSource.getPopularMovies();
       return right(popularMovies);
     } on ServerException catch (failure) {
       return left(
@@ -38,7 +38,7 @@ class MoviesRepoImpl extends MoviesRepo {
   Future<Either<Failure, List<MovieEntity>>> getTopRatedMovies() async {
     try {
       List<MovieEntity> topRatedMovies =
-          await moviesRemoteDataSource.getNowPlayingMovies();
+          await moviesRemoteDataSource.getTopRatedMovies();
       return right(topRatedMovies);
     } on ServerException catch (failure) {
       return left(

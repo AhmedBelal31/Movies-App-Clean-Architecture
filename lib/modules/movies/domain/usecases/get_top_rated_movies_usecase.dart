@@ -11,7 +11,6 @@ class GetTopRatedMoviesUseCase extends UseCase<List<MovieEntity>, void> {
 
   @override
   Future<Either<Failure, List<MovieEntity>>> execute([void param]) async {
-    // TODO: implement execute
     return await moviesRepo.getTopRatedMovies();
   }
 }
