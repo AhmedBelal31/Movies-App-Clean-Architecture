@@ -5,6 +5,8 @@ import 'package:movies_app_clean_architecture/modules/movies/data/data_source/mo
 import 'package:movies_app_clean_architecture/modules/movies/data/repos/movies_repo_impl.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/repos/movies_repo.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_now_playing_movies_usecase.dart';
+import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_popular_movies_usecase.dart';
+import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_top_rated_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_cubit.dart';
 
 GetIt getIt = GetIt.instance;
@@ -17,6 +19,9 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<MoviesRemoteDataSource>(
       () => MoviesRemoteDataSourceImpl(apiService: getIt.get<ApiService>()));
 
+  // getIt.registerSingleton<MoviesRemoteDataSource>(
+  //     (MoviesRemoteDataSourceImpl(apiService: getIt.get<ApiService>())));
+
   ///Register Movies Repo Impl
   getIt.registerLazySingleton<MoviesRepo>(() => MoviesRepoImpl(
       moviesRemoteDataSource: getIt.get<MoviesRemoteDataSource>()));
@@ -25,7 +30,37 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<GetNowPlayingUseCase>(
       () => GetNowPlayingUseCase(moviesRepo: getIt.get<MoviesRepo>()));
 
+  // getIt.registerSingleton<GetNowPlayingUseCase>(
+  //     GetNowPlayingUseCase(moviesRepo: getIt.get<MoviesRepo>()));
+
+  /// Register GetPopularUseCase
+  getIt.registerLazySingleton<GetPopularMoviesUseCase>(
+      () => GetPopularMoviesUseCase(moviesRepo: getIt.get<MoviesRepo>()));
+
+  // getIt.registerSingleton<GetPopularMoviesUseCase>(
+  //     (GetPopularMoviesUseCase(moviesRepo: getIt.get<MoviesRepo>())));
+
+  /// Register GetTopRatedUseCase
+  getIt.registerLazySingleton<GetTopRatedMoviesUseCase>(
+      () => GetTopRatedMoviesUseCase(moviesRepo: getIt.get<MoviesRepo>()));
+
+  // getIt.registerSingleton<GetTopRatedMoviesUseCase>(
+  //     GetTopRatedMoviesUseCase(moviesRepo: getIt.get<MoviesRepo>()));
+
   ///Register MoviesCubit
-  getIt.registerLazySingleton<MoviesCubit>(() =>
-      MoviesCubit(getNowPlayingUseCase: getIt.get<GetNowPlayingUseCase>()));
+  // getIt.registerLazySingleton<MoviesCubit>(
+  //   () => MoviesCubit(
+  //     getNowPlayingUseCase: getIt.get<GetNowPlayingUseCase>(),
+  //     getPopularMoviesUseCase: getIt.get<GetPopularMoviesUseCase>(),
+  //     getTopRatedMoviesUseCase: getIt.get<GetTopRatedMoviesUseCase>(),
+  //   ),
+  // );
+
+  getIt.registerSingleton<MoviesCubit>(
+    MoviesCubit(
+      getNowPlayingUseCase: getIt.get<GetNowPlayingUseCase>(),
+      getPopularMoviesUseCase: getIt.get<GetPopularMoviesUseCase>(),
+      getTopRatedMoviesUseCase: getIt.get<GetTopRatedMoviesUseCase>(),
+    ),
+  );
 }
