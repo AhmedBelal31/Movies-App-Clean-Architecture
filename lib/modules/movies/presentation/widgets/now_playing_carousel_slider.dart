@@ -4,9 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app_clean_architecture/core/utiles/constants/api_constants.dart';
-import 'package:movies_app_clean_architecture/core/utiles/movies_list.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_cubit.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_states.dart';
+import 'package:shimmer/shimmer.dart';
 
 class NowPlayingCarouselSlider extends StatelessWidget {
   const NowPlayingCarouselSlider({
@@ -44,18 +44,21 @@ class NowPlayingCarouselSlider extends StatelessWidget {
         } else if (state is NowPlayingMoviesFailureState) {
           return Center(child: Text('Error , ${state.errorMessage}'));
         } else {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 220, bottom: 160),
-              child: SizedBox(
-                width: 40,
-                height: 40,
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
+          return buildCarouselSliderLoading();
         }
       },
+    );
+  }
+
+  Shimmer buildCarouselSliderLoading() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[850]!,
+      highlightColor: Colors.grey[800]!,
+      child: Container(
+        height: 400.0,
+        width: double.infinity,
+        color: Colors.black,
+      ),
     );
   }
 
