@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app_clean_architecture/core/utiles/constants/api_constants.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_cubit.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_states.dart';
+import 'package:movies_app_clean_architecture/modules/movies/presentation/screens/movies_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NowPlayingCarouselSlider extends StatelessWidget {
@@ -17,7 +18,6 @@ class NowPlayingCarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesCubit, MoviesStates>(
       builder: (context, state) {
-        print('nowPlayingMovies rebuild ');
         var moviesCubit = BlocProvider.of<MoviesCubit>(context);
         //Arrange the list randomly
         final randomMovie = moviesCubit.nowPlayingMovies;
@@ -37,7 +37,7 @@ class NowPlayingCarouselSlider extends StatelessWidget {
               ),
               items: randomMovie.map(
                 (item) {
-                  return buildCarouselSliderItem(item);
+                  return buildCarouselSliderItem(item ,context);
                 },
               ).toList(),
             ),
@@ -63,11 +63,15 @@ class NowPlayingCarouselSlider extends StatelessWidget {
     );
   }
 
-  Widget buildCarouselSliderItem(item) {
+  Widget buildCarouselSliderItem(item ,context) {
     return GestureDetector(
       key: const Key('openMovieMinimalDetail'),
       onTap: () {
-        /// TODO : NAVIGATE TO MOVIE DETAILS
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MoviesDetailsScreen(movieId: item.id),
+          ),
+        );
       },
       child: Stack(
         children: [

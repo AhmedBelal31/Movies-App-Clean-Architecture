@@ -6,5 +6,7 @@ const String nowPlayingEndPoint = 'movie/now_playing';
 const String popularMoviesEndPoint = 'movie/popular';
 const String topRatedMoviesEndPoint = 'movie/top_rated';
 const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
-String imageUrl(String imagePath) =>
-    '$baseImageUrl$imagePath';
+
+String imageUrl(String imagePath) => '$baseImageUrl$imagePath';
+
+const String moviesDetails = 'movie/';
