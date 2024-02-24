@@ -17,6 +17,7 @@ class NowPlayingCarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesCubit, MoviesStates>(
       builder: (context, state) {
+        print('nowPlayingMovies rebuild ');
         var moviesCubit = BlocProvider.of<MoviesCubit>(context);
         //Arrange the list randomly
         final randomMovie = moviesCubit.nowPlayingMovies;

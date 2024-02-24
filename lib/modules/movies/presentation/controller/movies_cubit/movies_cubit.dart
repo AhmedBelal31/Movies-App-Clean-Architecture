@@ -56,7 +56,6 @@ class MoviesCubit extends Cubit<MoviesStates> {
       emit(TopRatedMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
       topRatedMovies = movies;
-      print(movies[0].imagePath);
       // print(movies);
       emit(TopRatedMoviesSuccessState(topRatedMovies: movies));
     });

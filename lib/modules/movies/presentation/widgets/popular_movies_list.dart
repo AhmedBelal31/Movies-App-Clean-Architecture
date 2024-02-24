@@ -15,6 +15,7 @@ class PopularMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesCubit, MoviesStates>(
       builder: (context, state) {
+        print('Popular rebuild ');
         var moviesCubit = BlocProvider.of<MoviesCubit>(context);
         if (state is PopularMoviesSuccessState ||
             moviesCubit.popularMovies.isNotEmpty) {
