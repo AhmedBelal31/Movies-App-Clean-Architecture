@@ -11,7 +11,7 @@ class MovieDetailsEntity extends Equatable {
 
   final String overview;
 
-  final String releaseData;
+  final String releaseDate;
 
   final int runtime;
 
@@ -23,7 +23,7 @@ class MovieDetailsEntity extends Equatable {
     required this.title,
     required this.imageUrl,
     required this.overview,
-    required this.releaseData,
+    required this.releaseDate,
     required this.runtime,
     required this.voteAverage,
   });
@@ -35,7 +35,7 @@ class MovieDetailsEntity extends Equatable {
         title,
         imageUrl,
         overview,
-        releaseData,
+        releaseDate,
         runtime,
         voteAverage,
       ];
