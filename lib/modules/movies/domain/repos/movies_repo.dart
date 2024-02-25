@@ -8,4 +8,5 @@ abstract class MoviesRepo {
   Future<Either<Failure, List<MovieEntity>>> getPopularMovies();
 
   Future<Either<Failure, List<MovieEntity>>> getTopRatedMovies();
+
 }

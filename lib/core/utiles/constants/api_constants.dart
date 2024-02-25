@@ -10,3 +10,4 @@ const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 String imageUrl(String imagePath) => '$baseImageUrl$imagePath';
 
 const String moviesDetails = 'movie/';
+const String similarDetails = 'movie/';

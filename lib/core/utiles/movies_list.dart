@@ -3,6 +3,7 @@ import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie
 List<MovieEntity> moviesList = const [
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
     genreIds: [
       14,
       28,
@@ -17,6 +18,8 @@ List<MovieEntity> moviesList = const [
   ),
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+
     genreIds: [
       14,
       28,
@@ -31,6 +34,7 @@ List<MovieEntity> moviesList = const [
   ),
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
     genreIds: [
       14,
       28,
@@ -45,6 +49,7 @@ List<MovieEntity> moviesList = const [
   ),
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
     genreIds: [
       14,
       28,
@@ -59,6 +64,7 @@ List<MovieEntity> moviesList = const [
   ),
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
     genreIds: [
       14,
       28,
@@ -73,6 +79,7 @@ List<MovieEntity> moviesList = const [
   ),
   MovieEntity(
     imagePath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+    posterPath: "/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
     genreIds: [
       14,
       28,

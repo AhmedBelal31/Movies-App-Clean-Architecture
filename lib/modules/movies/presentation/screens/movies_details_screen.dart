@@ -1,19 +1,18 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app_clean_architecture/core/services/service_locator.dart';
-import 'package:movies_app_clean_architecture/core/utiles/constants/api_constants.dart';
 import 'package:movies_app_clean_architecture/core/utiles/styles.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie_details_entity.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_movies_details_usecase.dart';
+import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_similar_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_details_cubit/movies_details_states.dart';
-import 'package:movies_app_clean_architecture/modules/movies/presentation/screens/movies_details_screen.dart';
+import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/similar_movies_cubit/similar_movies_cubit.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/movie_banner.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/movie_details_custom_loading.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/similar_grid_view_movies.dart';
 
 class MoviesDetailsScreen extends StatelessWidget {
   const MoviesDetailsScreen({super.key, required this.movieId});
@@ -22,19 +21,30 @@ class MoviesDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MoviesDetailsCubit(
-          getMoviesDetailsUseCase: getIt.get<GetMoviesDetailsUseCase>())
-        ..getMoviesDetails(id: movieId),
-      child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsStates>(
-        builder: (context, state) {
-          return SafeArea(
-            child: Scaffold(
-              body: state is! MoviesDetailsSuccessState
-                  ? const CustomLoadingIndicator()
-                  : SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MoviesDetailsCubit(
+              getMoviesDetailsUseCase: getIt.get<GetMoviesDetailsUseCase>())
+            ..getMoviesDetails(id: movieId),
+        ),
+        BlocProvider(
+          create: (context) => SimilarMoviesCubit(
+              getSimilarMoviesUseCase: getIt.get<GetSimilarMoviesUseCase>())
+            ..getSimilarMovies(similarMovie: movieId),
+        )
+      ],
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<MoviesDetailsCubit, MoviesDetailsStates>(
+                  builder: (context, state) {
+                    if (state is MoviesDetailsSuccessState) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MovieBanner(movie: state.movieDetailsEntity),
                           FadeInUp(
@@ -64,60 +74,31 @@ class MoviesDetailsScreen extends StatelessWidget {
                                   Text(
                                     'Genres: ${_showGenres(state.movieDetailsEntity.genreIds)}',
                                     // 'Genres: ${state.movieDetailsEntity.genreIds[0]}',
-                                    style: Styles.textStyle14.copyWith(
-                                      color: Colors.grey[800] ,
-                                      fontWeight: FontWeight.bold
-                                    ),
+                                    style: Styles.textStyle16.copyWith(
+                                        color: Colors.grey[300],
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          FadeInUp(
-                            from: 20,
-                            duration: const Duration(milliseconds: 500),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16 , bottom: 16),
-                              child: Text(
-                                'More like this'.toUpperCase(),
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: 1.2,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 1 / 1.35,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                              ),
-                              itemBuilder: (context, index) => Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade800,
-                                    borderRadius: BorderRadius.circular(8)),
-                              ),
-                              itemCount: 6,
-                            ),
-                          ),
                         ],
-                      ),
-                  ),
-
-              // : const CustomLoadingIndicator(),
+                      );
+                    } else if (state is MoviesDetailsFailureState) {
+                      return Center(
+                          child: Text('Error , ${state.errorMessage}'));
+                    } else {
+                      return const CustomLoadingIndicator();
+                    }
+                  },
+                ),
+                const SimilarMoviesGridView(),
+              ],
             ),
-          );
-        },
+          ),
+
+          // : const CustomLoadingIndicator(),
+        ),
       ),
     );
   }
@@ -192,7 +173,3 @@ class MoviesDetailsScreen extends StatelessWidget {
     return result.substring(0, result.length - 2);
   }
 }
-
-
-
-

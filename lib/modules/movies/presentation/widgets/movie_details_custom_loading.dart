@@ -60,23 +60,6 @@ class CustomLoadingIndicator extends StatelessWidget {
                     width: screenWidth / 2,
                   ),
                   const SizedBox(height: 20),
-                  GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.35,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) => Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                    itemCount: 6,
-                  ),
                 ],
               ),
             ),
