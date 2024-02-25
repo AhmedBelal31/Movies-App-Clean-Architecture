@@ -3,13 +3,17 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_app_clean_architecture/core/services/web_service.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/data_source/movies_details_remote_data_source.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/data_source/movies_remote_data_source.dart';
+import 'package:movies_app_clean_architecture/modules/movies/data/data_source/similar_movies_remote_data_source.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/repos/movies_details_repo_impl.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/repos/movies_repo_impl.dart';
+import 'package:movies_app_clean_architecture/modules/movies/data/repos/similar_movies_repo_impl.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/repos/movies_details_repo.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/repos/movies_repo.dart';
+import 'package:movies_app_clean_architecture/modules/movies/domain/repos/similar_movies_repo.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_movies_details_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_now_playing_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_popular_movies_usecase.dart';
+import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_similar_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_top_rated_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_cubit.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_details_cubit/movies_details_cubit.dart';
@@ -82,6 +86,19 @@ void setupServiceLocator() {
       () => GetMoviesDetailsUseCase(moviesDetailsRepo: getIt()));
 
   /// Register Movies Cubit
-  getIt.registerSingleton<MoviesDetailsCubit>(
-      MoviesDetailsCubit(getMoviesDetailsUseCase: getIt.get<GetMoviesDetailsUseCase>()));
+  getIt.registerSingleton<MoviesDetailsCubit>(MoviesDetailsCubit(
+      getMoviesDetailsUseCase: getIt.get<GetMoviesDetailsUseCase>()));
+
+
+  /// Register SimilarMoviesRemoteDataSource
+  getIt.registerLazySingleton<SimilarMoviesRemoteDataSource>(
+      () => SimilarMoviesRemoteDataSourceImpl(apiService: getIt()));
+
+  ///Register SimilarMoviesRepo
+  getIt.registerLazySingleton<SimilarMoviesRepo>(
+      () => SimilarMoviesRepoImpl(similarMoviesRemoteDataSource: getIt()));
+
+  ///Register GetSimilarMoviesUseCase
+  getIt.registerLazySingleton<GetSimilarMoviesUseCase>(
+      () => GetSimilarMoviesUseCase(similarMoviesRepo: getIt()));
 }
