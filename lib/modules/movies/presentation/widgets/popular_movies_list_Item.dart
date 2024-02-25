@@ -28,14 +28,17 @@ class PopularMoviesListItem extends StatelessWidget {
             ),
           );
         },
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-          child: CachedNetworkImage(
-            width: 120.0,
-            fit: BoxFit.cover,
-            imageUrl: imageUrl(movie.imagePath),
-            placeholder: (context, url) => buildShimmerEffect(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+        child: Hero(
+          tag: movie.id,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            child: CachedNetworkImage(
+              width: 120.0,
+              fit: BoxFit.cover,
+              imageUrl: imageUrl(movie.imagePath),
+              placeholder: (context, url) => buildShimmerEffect(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
         ),
       ),

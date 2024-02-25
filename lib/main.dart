@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app_clean_architecture/core/services/bloc_observer.dart';
 import 'package:movies_app_clean_architecture/core/services/service_locator.dart';
 import 'package:movies_app_clean_architecture/modules/movies/data/data_source/movies_details_remote_data_source.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        // textTheme:   GoogleFonts.poppinsTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
       home: const MoviesScreen(),
