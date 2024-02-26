@@ -14,7 +14,7 @@ class MoviesDetailsRemoteDataSourceImpl extends MoviesDetailsRemoteDataSource {
 
   @override
   Future<MovieDetailsEntity> getMoviesDetails({required int movieId}) async {
-    var data = await apiService.getData('$moviesDetails$movieId');
+    var data = await apiService.getData(endPoint: '$moviesDetails$movieId');
     var movieDetails = MovieDetailsModel.fromJson(data);
     return movieDetails;
   }

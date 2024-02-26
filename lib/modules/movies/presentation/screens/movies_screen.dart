@@ -9,6 +9,8 @@ import 'package:movies_app_clean_architecture/modules/movies/data/data_source/mo
 import 'package:movies_app_clean_architecture/modules/movies/data/repos/movies_repo_impl.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_now_playing_movies_usecase.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/controller/movies_cubit/movies_cubit.dart';
+import 'package:movies_app_clean_architecture/modules/movies/presentation/screens/all_popular_movies_screen.dart';
+import 'package:movies_app_clean_architecture/modules/movies/presentation/screens/all_top_rated_movies_screen.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/now_playing_carousel_slider.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/popular_movies_list.dart';
 import 'package:movies_app_clean_architecture/modules/movies/presentation/widgets/top_rated_movies_list.dart';
@@ -18,31 +20,25 @@ class MoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<MoviesCubit>()
-        ..getPopularMovies()
-        ..getNowPlayingMovies()
-        ..getTopRatedMovies(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          key: const Key('movieScrollView'),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const NowPlayingCarouselSlider(),
-              buildPopularHeader(),
-              const PopularMovies(),
-              buildTopRatedHeader(),
-              const TopRatedMoviesList(),
-              const SizedBox(height: 50.0),
-            ],
-          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        key: const Key('movieScrollView'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const NowPlayingCarouselSlider(),
+            buildPopularHeader(context),
+            const PopularMovies(),
+            buildTopRatedHeader(context),
+            const TopRatedMoviesList(),
+            const SizedBox(height: 50.0),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildPopularHeader() {
+  Widget buildPopularHeader(context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
       child: Row(
@@ -58,7 +54,11 @@ class MoviesScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              /// TODO : NAVIGATION TO POPULAR SCREEN
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AllPopularMovies(),
+                ),
+              );
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -78,7 +78,7 @@ class MoviesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTopRatedHeader() {
+  Widget buildTopRatedHeader(context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
       child: Row(
@@ -94,7 +94,11 @@ class MoviesScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              /// TODO : NAVIGATION TO Top Rated Movies Screen
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AllTopRatedMovies(),
+                ),
+              );
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),

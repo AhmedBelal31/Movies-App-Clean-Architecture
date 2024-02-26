@@ -14,7 +14,7 @@ class SimilarMoviesRemoteDataSourceImpl extends SimilarMoviesRemoteDataSource {
 
   @override
   Future<List<MovieEntity>> getSimilarMovies({required int movieId}) async {
-    var data = await apiService.getData('$similarDetails$movieId/similar');
+    var data = await apiService.getData(endPoint:'$similarDetails$movieId/similar');
     var movieDetails = getMoviesList(data);
     // print('Similar movies ${movieDetails}');
     return movieDetails;

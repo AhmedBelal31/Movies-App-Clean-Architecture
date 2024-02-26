@@ -35,9 +35,9 @@ class MoviesCubit extends Cubit<MoviesStates> {
     });
   }
 
-  Future<void> getPopularMovies() async {
+  Future<void> getPopularMovies({int pageNumber =1}) async {
     emit(PopularMoviesLoadingStates());
-    var popularMoviesOrFailure = await getPopularMoviesUseCase.execute();
+    var popularMoviesOrFailure = await getPopularMoviesUseCase.execute(pageNumber);
 
     popularMoviesOrFailure.fold((failure) {
       emit(PopularMoviesFailureState(errorMessage: failure.errorMessage));
@@ -48,9 +48,9 @@ class MoviesCubit extends Cubit<MoviesStates> {
     });
   }
 
-  Future<void> getTopRatedMovies() async {
+  Future<void> getTopRatedMovies({int pageNumber =1}) async {
     emit(TopRatedMoviesLoadingStates());
-    var topRatedMoviesOrFailure = await getTopRatedMoviesUseCase.execute();
+    var topRatedMoviesOrFailure = await getTopRatedMoviesUseCase.execute(pageNumber);
 
     topRatedMoviesOrFailure.fold((failure) {
       emit(TopRatedMoviesFailureState(errorMessage: failure.errorMessage));

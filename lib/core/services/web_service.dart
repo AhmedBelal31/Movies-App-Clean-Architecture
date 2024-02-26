@@ -8,8 +8,8 @@ class ApiService {
 
   ApiService(this._dio);
 
-  Future<Map<String, dynamic>> getData(String endPoint) async {
-    var response = await _dio.get('$baseUrl$endPoint?api_key=$apiKey');
+  Future<Map<String, dynamic>> getData({required String endPoint, int pageNumber =1}) async {
+    var response = await _dio.get('$baseUrl$endPoint?api_key=$apiKey&page=$pageNumber');
     if (response.statusCode == 200) {
       return response.data;
     } else {

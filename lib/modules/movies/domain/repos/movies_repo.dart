@@ -5,8 +5,7 @@ import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie
 abstract class MoviesRepo {
   Future<Either<Failure, List<MovieEntity>>> getNowPlayingMovies();
 
-  Future<Either<Failure, List<MovieEntity>>> getPopularMovies();
+  Future<Either<Failure, List<MovieEntity>>> getPopularMovies( {int pageNumber = 1});
 
-  Future<Either<Failure, List<MovieEntity>>> getTopRatedMovies();
-
+  Future<Either<Failure, List<MovieEntity>>> getTopRatedMovies( {int pageNumber = 1});
 }

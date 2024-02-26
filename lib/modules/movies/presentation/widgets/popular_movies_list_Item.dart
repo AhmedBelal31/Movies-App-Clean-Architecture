@@ -22,7 +22,6 @@ class PopularMoviesListItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                print(movie.id);
                return MoviesDetailsScreen(movieId: movie.id);
               },
             ),

@@ -6,9 +6,9 @@ import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie
 abstract class MoviesRemoteDataSource {
   Future<List<MovieEntity>> getNowPlayingMovies();
 
-  Future<List<MovieEntity>> getPopularMovies();
+  Future<List<MovieEntity>> getPopularMovies({int pageNumber = 1});
 
-  Future<List<MovieEntity>> getTopRatedMovies();
+  Future<List<MovieEntity>> getTopRatedMovies({int pageNumber = 1});
 }
 
 class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
@@ -18,22 +18,22 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
 
   @override
   Future<List<MovieEntity>> getNowPlayingMovies() async {
-    var data = await apiService.getData(nowPlayingEndPoint);
+    var data = await apiService.getData(endPoint: nowPlayingEndPoint);
     List<MovieEntity> nowPlayingMovies = getMoviesList(data);
 
     return nowPlayingMovies;
   }
 
   @override
-  Future<List<MovieEntity>> getPopularMovies() async {
-    var data = await apiService.getData(popularMoviesEndPoint);
+  Future<List<MovieEntity>> getPopularMovies({int pageNumber = 1}) async {
+    var data = await apiService.getData(endPoint: popularMoviesEndPoint,pageNumber: pageNumber);
     List<MovieEntity> popularMovies = getMoviesList(data);
     return popularMovies;
   }
 
   @override
-  Future<List<MovieEntity>> getTopRatedMovies() async {
-    var data = await apiService.getData(topRatedMoviesEndPoint);
+  Future<List<MovieEntity>> getTopRatedMovies({int pageNumber = 1}) async {
+    var data = await apiService.getData(endPoint: topRatedMoviesEndPoint ,pageNumber: pageNumber);
     List<MovieEntity> topRatedMovies = getMoviesList(data);
     return topRatedMovies;
   }

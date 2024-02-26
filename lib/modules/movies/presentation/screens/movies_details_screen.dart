@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app_clean_architecture/core/services/service_locator.dart';
+import 'package:movies_app_clean_architecture/core/utiles/methods/showDuration.dart';
 import 'package:movies_app_clean_architecture/core/utiles/styles.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/entity/movie_details_entity.dart';
 import 'package:movies_app_clean_architecture/modules/movies/domain/usecases/get_movies_details_usecase.dart';
@@ -142,22 +143,11 @@ class MoviesDetailsScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16.0),
         Text(
-          _showDuration(state.movieDetailsEntity.runtime),
+          showDuration(state.movieDetailsEntity.runtime),
           style: Styles.textStyle16,
         ),
       ],
     );
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 
   String _showGenres(List<MoviesGenreIdsEntity> genres) {
