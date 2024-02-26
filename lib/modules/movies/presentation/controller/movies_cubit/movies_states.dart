@@ -21,6 +21,7 @@ class NowPlayingMoviesFailureState extends MoviesStates {
 
 ///States For Popular Movies
 class PopularMoviesLoadingStates extends MoviesStates {}
+class PopularMoviesPaginationLoadingStates extends MoviesStates {}
 
 class PopularMoviesSuccessState extends MoviesStates {
   List<MovieEntity> popularMovies;
@@ -36,6 +37,8 @@ class PopularMoviesFailureState extends MoviesStates {
 
 ///States For Top Rated Movies
 class TopRatedMoviesLoadingStates extends MoviesStates {}
+
+class TopRatedMoviesPaginationLoadingStates extends MoviesStates {}
 
 class TopRatedMoviesSuccessState extends MoviesStates {
   List<MovieEntity> topRatedMovies;

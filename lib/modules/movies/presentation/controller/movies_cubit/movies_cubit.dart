@@ -35,29 +35,36 @@ class MoviesCubit extends Cubit<MoviesStates> {
     });
   }
 
-  Future<void> getPopularMovies({int pageNumber =1}) async {
+  Future<void> getPopularMovies({int pageNumber = 1}) async {
+    // if (pageNumber == 1) {
+    //   emit(PopularMoviesLoadingStates());
+    // } else {
+    //   emit(PopularMoviesPaginationLoadingStates());
+    // }
     emit(PopularMoviesLoadingStates());
-    var popularMoviesOrFailure = await getPopularMoviesUseCase.execute(pageNumber);
+
+    var popularMoviesOrFailure =
+        await getPopularMoviesUseCase.execute(pageNumber);
 
     popularMoviesOrFailure.fold((failure) {
       emit(PopularMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
       // print('Popular Data \n $movies');
-      popularMovies = movies;
-      emit(PopularMoviesSuccessState(popularMovies: movies));
+      popularMovies.addAll(movies);
+      emit(PopularMoviesSuccessState(popularMovies: popularMovies));
     });
   }
 
-  Future<void> getTopRatedMovies({int pageNumber =1}) async {
+  Future<void> getTopRatedMovies({int pageNumber = 1}) async {
     emit(TopRatedMoviesLoadingStates());
-    var topRatedMoviesOrFailure = await getTopRatedMoviesUseCase.execute(pageNumber);
+    var topRatedMoviesOrFailure =
+        await getTopRatedMoviesUseCase.execute(pageNumber);
 
     topRatedMoviesOrFailure.fold((failure) {
       emit(TopRatedMoviesFailureState(errorMessage: failure.errorMessage));
     }, (movies) {
-      topRatedMovies = movies;
-      // print(movies);
-      emit(TopRatedMoviesSuccessState(topRatedMovies: movies));
+      topRatedMovies.addAll(movies);
+      emit(TopRatedMoviesSuccessState(topRatedMovies: topRatedMovies));
     });
   }
 }
